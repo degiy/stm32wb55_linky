@@ -84,8 +84,8 @@ So for each ADC value read we calculate the sum of the energies of the center me
 
 The serial signal is as follow :
 - one start bit (0)
-- seven data bits (0 or 1)
-- one parity bit (0 or 1) : odd
+- seven data bits (0 or 1) in LSB first format
+- one parity bit (0 or 1) : even
 - one stop bit (1)
 
 At the end of one sequence (line) we can have long periods of 1 (no bearer), or an infinite stop bit.
@@ -136,6 +136,29 @@ As the uppers rays of the distribution are more precise (as we measure up to 6 b
 ![scoring](./scoring.PNG)
 
 # state machine
+
+## TIC frame
+
+Enedis documentation describe the frame format used by TIC :
+- Begining of structured data starts with <STX> (0x02) byte
+- End of structured data ends with <ETX> (0x03) byte
+- Structured data is composed of lines of data which :
+    - starts with <LF> (0x0a)
+    - ends with <CR> (0x0d)
+    - can be composed of any ASCII character in the middle (including <LF>)
+- Both structured data and lines (excepted the first one) begin by a long period of 1 (no bearer) so just before the <STX> or <LF> and can be used as a marker, as a start bit will then follow. The spec. asks for at least 20 bits and no more as 40.
+
+## State machine
+
+In order to begin to decode at start of frame and be sure to follow the protocol, we use a state machine to manage internal state of the decoder who is fed with the last value and its length in bits.
+
+![scoring](./state_machine.svg)
+
+Each purple arrow mean we encounter a gap of more than 10 same bits (what is impossible except between frames or lines). The termination is :
+- _START is we just need the start bit
+- _P for parity bit alone
+- _PSS for parity bit with a stop bit then a start bit
+- 7 if just 7 bits are read (in the case of the end of a line CR is follow by a parity of 1 and a stop bit of 1, then a gap of 1 ... so indeed a bit gap from the decoder perspective)
 
 # result
 
