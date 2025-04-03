@@ -125,8 +125,57 @@ Here any N between 756/7=108 and 121 will be fine. But this is not how the progr
 
 To find the best spacing who better fit our distribution we will use a comb. Each tooth of the comb will match each ray of our distribution.
 
-We start with a comb with 9 tooth spaced of 10, and make the sum of buf[10]+buf[20]+..+buf[90] rate the value for the comb of 10, then do for 11,..., 150. The value around 125 will rise as the best rated cumb. We substrat 8% from it and get our value.
+We start with a comb with 9 tooth spaced of 10, and make the sum of buf[10]+buf[20]+..+buf[90] rate the value for the comb of 10, then do for 11,..., 150. The comb with the value around 125 between teeth will rise as the best rated cumb. We substrat 8% from it and get our value : N.
 
-As the uppers rays of the distribution are more precise (as we measure up to 6 bits) we give them more credit in the scoring of the cumb.
+The following graphic explain the growth of the comb spacing between tooths and the optimal value who maximize our algorithm scoring.
+
+![scoring](./comb.svg)
+
+As the uppers rays of the distribution are more precise (as we measure up to 6 bits) we give them more credit in the scoring of the comb.
 
 ![scoring](./scoring.PNG)
+
+# state machine
+
+# result
+
+I changed my counter serial number with xxxx
+
+```
+ADCO 81206123xxxx A
+OPTARIF BASE 0
+ISOUSC 30 9
+BASE 011809808 .
+PTEC TH.. $
+IINST 011 Y
+IMAX 090 H
+PAPP 02800 +
+HHPHC A ,
+MOTDETAT 000000 B
+
+
+ADCO 81206123xxxx A
+OPTARIF BASE 0
+ISOUSC 30 9
+BASE 011809809 /
+PTEC TH.. $
+IINST 012 Z
+IMAX 090 H
+PAPP 02900 ,
+HHPHC A ,
+MOTDETAT 000000 B
+
+
+ADCO 81206123xxxx A
+OPTARIF BASE 0
+ISOUSC 30 9
+BASE 011809810 '
+PTEC TH.. $
+IINST 011 Y
+IMAX 090 H
+PAPP 02740 .
+HHPHC A ,
+MOTDETAT 000000 B
+```
+
+
